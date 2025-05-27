@@ -35,6 +35,11 @@ class Especial {
     var property peso
     var property color
     const velocidadMaxima 
+    method initialize() {
+        if(not coloresValidos.listaColores().contains(color)) {
+            self.error(color.toString() + " no es un color válido")
+        }  
+    }
     method velocidadMaxima() = 
         velocidadMaxima.min(topeVelocidadMaxima.tope())
 }
