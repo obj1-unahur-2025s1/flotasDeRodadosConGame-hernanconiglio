@@ -69,7 +69,10 @@ object popular {
 
 class Dependencia {
     const flota = []
+    const pedidos = #{}
     var property empleados = 0
+    method agregarPedido(unPedido) {pedidos.add(unPedido)}
+    method quitarPedido(unPedido) {pedidos.remove(unPedido)}
     method agregarAFlota(rodado) {flota.add(rodado)}
     method quitarDeFlota(rodado) {flota.remove(rodado)}
     method pesoTotalFlota() = flota.sum({r=>r.peso()})
@@ -86,8 +89,20 @@ class Dependencia {
     method capacidadFaltante() = (empleados - self.capacidadDeLaFlota()).max(0)
     method capacidadDeLaFlota() = flota.sum({r=>r.capacidad()})
     method esGrande() = empleados >= 40 && self.tieneAlMenosRodados(5)
+    method totalPasajerosEnPedidos() = pedidos.sum({p=>p.pasajeros()})
+    method pedidosNoPuedenSerSatisfechos() = 
+        pedidos.filter({p=> not self.hayAlgunRodadoqueSatisfacerUnPedido(p)})
+    method hayAlgunRodadoqueSatisfacerUnPedido(unPedido) = 
+        flota.any({r=>unPedido.puedeSatisfacer(r)})
+
+    method todosLosPedidosTienenIncompatible(unColor) =
+        pedidos.all({p=>p.coloresIncompatibles().contains(unColor)})
+
+    method relajarTodosLosPedidos() {
+        pedidos.forEach({p=>p.relajar()})
+    }
 }
 
 object coloresValidos {
-    const property listaColores = #{"rojo","verde","azul","blanco"}
+    const property listaColores = #{"rojo","verde","azul","blanco","negro","beige"}
 }
