@@ -3,7 +3,9 @@ class Dependencia {
     const property flota = []
     var property empleados
 
-    method agregarAFlota(rodado) {flota.add(rodado)}
+    method agregarAFlota(rodado) {
+        flota.add(rodado)
+        }    
     method quitarDeFlota(rodado) {flota.remove(rodado)}
     method pesoTotalFlota() = flota.sum({r=>r.peso()})
     method estaBienEquipada() = self.tieneAlMenosRodados(3) && self.todosVanAlMenosAkm(100)

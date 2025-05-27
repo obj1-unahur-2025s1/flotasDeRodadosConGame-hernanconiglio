@@ -1,5 +1,10 @@
 class Corsa {
     var property color
+    method initialize() {
+        if(not coloresValidos.listaColores().contains(color)) {
+            self.error(color.toString() + " no es un color válido")
+        }  
+    }
     method capacidad() = 4
     method velocidadMaxima() = 150
     method peso() = 1300
@@ -47,4 +52,14 @@ class Especial {
     var property color
     var property velocidadMaxima
     var property capacidad
+
+    method initialize() {
+        if(not coloresValidos.listaColores().contains(color)) {
+            self.error(color.toString() + " no es un color válido")
+        }  
+    }
+}
+
+object coloresValidos {
+    const property listaColores = #{"rojo","verde","azul","blanco"}
 }
