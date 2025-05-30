@@ -1,0 +1,37 @@
+import dependencia.*
+import rodados.*
+import pedidos.*
+
+describe "test de dependencias con pedidos" {
+    const deportes = new Dependencia(empleados=45)
+    const cultura = new Dependencia(empleados=31)
+    const cachito = new Corsa(color="rojo")
+    const esp1 = new Especial(peso=1000,color="rojo",velocidadMaxima=200,capacidad=5)
+    const pedido1 = new Pedido(distancia=960,tiempoMaximo=8,pasajeros=4,coloresIncompatibles=#{"azul","negro"})
+    const pedido2 = new Pedido(distancia=960,tiempoMaximo=6,pasajeros=4,coloresIncompatibles=#{"azul","negro"})
+    method initialize() {
+        deportes.agregarAFlota(cachito)
+        deportes.agregarAFlota(esp1)
+        deportes.agregarPedido(pedido1)
+        deportes.agregarPedido(pedido2)
+    }
+    test "el total de pasajeros en la dependencia deportes es 8" {
+        assert.equals(8,deportes.totalPasajerosEnPedidos())
+    }
+
+    test "agregando el rojo como color incompatible en pedido1, no puede ser satisfecho" {
+        pedido1.agregarColorIncompatible("rojo")
+        assert.equals([pedido1],deportes.pedidosNoPuedenSerSatisfechos())
+    }
+
+    test "todos los pedidos de deportes tienen al azul como color incompatible" {
+        assert.that(deportes.todosLosPedidosTienenIncompatible("azul"))
+    }
+
+      test "probar que al relajar todos los pedidos, pedido1 queda en 9 y pedido 2 en 7"  {
+        deportes.relajarTodosLosPedidos()
+        assert.equals(9, pedido1.tiempoMaximo())
+        assert.equals(7,pedido2.tiempoMaximo())
+      }
+}
+

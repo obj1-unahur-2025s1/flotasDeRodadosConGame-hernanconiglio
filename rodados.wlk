@@ -3,6 +3,11 @@ class Corsa {
     method capacidad() = 4
     method velocidadMaxima() = 150
     method peso() = 1300
+    method initialize() {
+        if(not colores.validos().contains(color)) {
+            self.error(color.toString() + " no es un color valido")
+        }
+    }
 }
 
 class Kwid {
@@ -47,5 +52,13 @@ class Especial {
     var property color
     var property velocidadMaxima
     var property capacidad
+    method initialize() {
+        if(not colores.validos().contains(color)) {
+            self.error(color.toString() + " no es un color valido")
+        }
+    }
 }
 
+object colores {
+    method validos() = #{"rojo","verde","azul","blanco","negro","beige"}
+}
